@@ -6,3 +6,5 @@ Schema
 ---
 
 ![screen](https://raw.githubusercontent.com/infusion/Fritzing/master/GY-NEO6MV2%20GPS/screen.png)
+
+![screen](https://raw.githubusercontent.com/infusion/Fritzing/master/GY-NEO6MV2%20GPS/screen-pi.png)
