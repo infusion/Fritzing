@@ -24,7 +24,7 @@
 #define NUNCHUK_DISABLE_ENCRYPTION 1
 
 // Print debug information instead of a CSV stream to the serial port
-#define NUNCHUK_DEBUG 1
+#define NUNCHUK_DEBUG 0
 
 // The Nunchuk I2C address
 #define NUNCHUK_ADDRESS 0x52
@@ -40,12 +40,12 @@
 #define I2C_START(x) Wire.beginTransmission(x)
 #define I2C_STOP() Wire.endTransmission()
 
-#ifndef CPU_FREQ 
-#define CPU_FREQ 16000000L 
+#ifndef CPU_FREQ
+#define CPU_FREQ 16000000L
 #endif
 
-#ifndef TWI_FREQ 
-#define TWI_FREQ 400000L 
+#ifndef TWI_FREQ
+#define TWI_FREQ 400000L
 #endif
 
 uint8_t nunchuk_data[6];
@@ -114,7 +114,7 @@ static void nunchuk_init() {
 
 /**
  * Decodes a byte if encryption is used
- * 
+ *
  * @param x The byte to be decoded
  */
 static inline uint8_t nunchuk_decode_byte(uint8_t x) {
@@ -127,7 +127,7 @@ static inline uint8_t nunchuk_decode_byte(uint8_t x) {
 
 /**
  * Central function to read a full chunk of data from Nunchuk
- * 
+ *
  * @return A boolean if the data transfer was successful
  */
 static uint8_t nunchuk_read() {

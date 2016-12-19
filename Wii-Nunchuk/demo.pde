@@ -1,3 +1,4 @@
+
 import processing.serial.*;
 import processing.opengl.*;
 
@@ -14,6 +15,19 @@ float jY;
 float bZ;
 float bC;
 
+// Kalman vars
+float P1 = 0;
+float Q1 = .1;
+float R1 = 0.3;
+float K1 = 0;
+float X1 = 0;
+
+float P2 = 0;
+float Q2 = 0.1;
+float R2 = 0.3;
+float K2 = 0;
+float X2 = 0;
+
 void setup() {
     size(450, 450, OPENGL);
 
@@ -25,9 +39,9 @@ void setup() {
 void draw() {
 
     if (myPort.available() > 0) {
-        
+
         val = myPort.readStringUntil('\n');
-        
+
         float[] tmp;
         try{
             tmp = float(val.split(","));
@@ -45,22 +59,38 @@ void draw() {
         Z = tmp[4];
         bZ = tmp[5];
         bC = tmp[6];
-
     } else {
         return;
     }
 
-    background(0, 128, 255);
+    // Kalman 1 - pitch
+    float Xtmp = X1;
+    float Ptmp = P1 + Q1;
+    K1 = Ptmp / (Ptmp + R1);
+    X1 = Xtmp + K1 * (atan2(Y, Z) - Xtmp);
+    P1 = (1 - K1) * Ptmp;
+    X1 = atan2(Y, Z);
+
+    // Kalman 2 - roll
+    Xtmp = X2;
+    Ptmp = P2 + Q2;
+    K2 = Ptmp / (Ptmp + R2);
+    X2 = Xtmp + K2 * (atan2(X, Z) - Xtmp);
+    P2 = (1 - K2) * Ptmp;
+    X2 = atan2(X, Z);
+
+    background(60, 60, 60);
     lights();
 
-    fill(255, 128, 0);
+    fill(245, 10, 10);
 
     pushMatrix();
     translate(225, 300, 0);
-    rotateX(1.3 + atan2(Y, Z));
-    rotateY(atan2(X, Z));
+    rotateX(1.3 + (X1 - 0));
+    rotateY((X2 - 0));
     drawCylinder(20, 40, 80, 80);
     popMatrix();
+
 }
 
 void drawCylinder(int sides, float r1, float r2, float h) {
