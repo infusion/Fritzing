@@ -21,10 +21,10 @@
 #define NUNCHUK_JOYSTICK_Y_ZERO 128
 
 // Whether to disable encryption. Enabling encryption means that every packet must be decrypted, which wastes cpu cycles. Cheap Nunchuk clones have problems with the encrypted init sequence, so be sure you know what you're doing
-#define NUNCHUK_DISABLE_ENCRYPTION 1
+#define NUNCHUK_DISABLE_ENCRYPTION
 
 // Print debug information instead of a CSV stream to the serial port
-#define NUNCHUK_DEBUG 0
+// #define NUNCHUK_DEBUG
 
 // The Nunchuk I2C address
 #define NUNCHUK_ADDRESS 0x52
@@ -90,7 +90,7 @@ static void nunchuk_init() {
     I2C_STOP();
 #endif
 
-#if NUNCHUK_DEBUG
+#ifdef NUNCHUK_DEBUG
     Serial.print("Ident: "); // 0xA4200000 for Nunchuck, 0xA4200101 for Classic, 0xA4200402 for Balance
 
     I2C_START(NUNCHUK_ADDRESS);
@@ -256,7 +256,7 @@ static float nunchuk_roll() {
  */
 static void nunchuk_print() {
 
-#if NUNCHUK_DEBUG
+#ifdef NUNCHUK_DEBUG
     Serial.print("joy: ");
     Serial.print(nunchuk_joystickX(), DEC);
     Serial.print(", ");
