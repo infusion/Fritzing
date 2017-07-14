@@ -1,0 +1,30 @@
+{
+    "name": "syma-s107g-controller",
+    "homepage": "...",
+    "bugs": "...",
+    "title": "syma-s107g-controller",
+    "version": "1.0.0",
+    "description": "A small lib to control the Syma S107G with a USB controller",
+    "keywords": [
+        "syma s107g",
+        "syma",
+        "playstation",
+        "controller"
+    ],
+    "author": "Robert Eisele <robert@xarg.org> (http://www.xarg.org/)",
+    "main": "control",
+    "private": false,
+    "readmeFilename": "README.md",
+    "license": "MIT OR GPL-2.0",
+    "repository": {
+        "type": "git",
+        "url": "..."
+    },
+    "engines": {
+        "node": "*"
+    },
+    "dependencies": {
+        "gamecontroller": "*",
+        "serialport": "*"
+    }
+}
