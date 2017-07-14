@@ -1,7 +1,7 @@
 {
     "name": "syma-s107g-controller",
-    "homepage": "...",
-    "bugs": "...",
+    "homepage": "https://www.xarg.org/2017/07/operate-a-syma-s107g-remote-control-helicopter-with-an-arduino/",
+    "bugs": "https://github.com/infusion/Fritzing/issues",
     "title": "syma-s107g-controller",
     "version": "1.0.0",
     "description": "A small lib to control the Syma S107G with a USB controller",
@@ -15,10 +15,10 @@
     "main": "control",
     "private": false,
     "readmeFilename": "README.md",
-    "license": "MIT OR GPL-2.0",
+    "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "..."
+        "url": "git://github.com/infusion/Fritzing"
     },
     "engines": {
         "node": "*"
