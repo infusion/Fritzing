@@ -1,27 +1,15 @@
 
-function clamp(x, a, b) {
-  return Math.max(Math.min(x, b), a);
-}
+const clamp = (x, a, b) => Math.max(Math.min(x, b), a);
 
-let IS_OPEN = false;
-
+const SerialPort = require("serialport");
 const Gamecontroller = require("gamecontroller");
 const ctrl = new Gamecontroller("ps2");
 
 ctrl.connect();
 
-const SerialPort = require("serialport");
 const serialPort = new SerialPort("/dev/cu.usbserial-A702YPTD", {
   baudrate: 9600,
   autoOpen: false
-});
-
-serialPort.open(function(err) {
-  if (err) {
-    console.log(err);
-    return;
-  }
-  IS_OPEN = true;
 });
 
 const state = [
@@ -33,23 +21,23 @@ const state = [
   63 // Trim
 ];
 
-ctrl.on("data", function(data) {
-
-  if (!IS_OPEN)
+serialPort.open(function(err) {
+  if (err) {
+    console.log(err);
     return;
+  }
 
-  //data[2]: 0x80=center, 0xff rechts, 0x00=links
-  //data[3]: 0x80center, 0x00 vor,
+  ctrl.on("data", function(data) {
 
-  state[2] += (-data['axis:JOYL:Y'] + 0x80) / 100;
-  state[3] = 63 + (-data['axis:JOYR:X'] + 0x80) / 2;
-  state[4] = 63 + (data['axis:JOYR:Y'] - 0x80) / 2;
+    //data[2]: 0x80=center, 0xff rechts, 0x00=links
+    //data[3]: 0x80center, 0x00 vor,
+    
+    state[2] = clamp(state[2] + (128 - data['axis:JOYL:Y']) / 100, 0, 127);
+    state[3] = clamp(127 - data['axis:JOYR:X'] / 2, 0, 127);
+    state[4] = clamp((data['axis:JOYR:Y'] - 2) / 2, 0, 127);
 
-  state[2] = clamp(state[2], 0, 127);
-  state[3] = clamp(state[3], 0, 127);
-  state[4] = clamp(state[4], 0, 127);
-
-  serialPort.write(new Buffer(state));
+    serialPort.write(new Buffer(state));
+  });
 });
 
 ctrl.on("error", function(x) {
