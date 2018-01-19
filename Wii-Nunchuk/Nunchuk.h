@@ -56,6 +56,7 @@ uint8_t nunchuk_cali[16];
  * Like for the famous WiiChuck adapter
  * @see https://todbot.com/blog/2008/02/18/wiichuck-wii-nunchuck-adapter-available/
  */
+#ifndef __AVR_ATmega32U4__ // NOT Arduino Leonardo
 static void nunchuk_init_power() {
     // Add power supply for port C2 (GND) and C3 (PWR)
     PORTC &= ~_BV(PORTC2);
@@ -63,7 +64,7 @@ static void nunchuk_init_power() {
     DDRC |= _BV(PORTC2) | _BV(PORTC3);
     delay(100);
 }
-
+#endif
 /**
  * Initializes the Nunchuk communication by sending a sequence of bytes
  */
