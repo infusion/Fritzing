@@ -40,14 +40,6 @@
 #define I2C_START(x) Wire.beginTransmission(x)
 #define I2C_STOP() Wire.endTransmission()
 
-#ifndef CPU_FREQ
-#define CPU_FREQ 16000000L
-#endif
-
-#ifndef TWI_FREQ
-#define TWI_FREQ 400000L
-#endif
-
 uint8_t nunchuk_data[6];
 uint8_t nunchuk_cali[16];
 
@@ -72,7 +64,7 @@ static void nunchuk_init() {
 
     // Change TWI speed for nuchuk, which uses Fast-TWI (400kHz)
     // Normally this will be set in twi_init(), but this hack works without modifying the original source
-    TWBR = ((CPU_FREQ / TWI_FREQ) - 16) / 2;
+    Wire.setClock(400000);
 
 #ifdef NUNCHUK_DISABLE_ENCRYPTION
     I2C_START(NUNCHUK_ADDRESS);
