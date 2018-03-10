@@ -38,7 +38,7 @@
 #endif
 
 #define I2C_START(x) Wire.beginTransmission(x)
-#define I2C_STOP() Wire.endTransmission()
+#define I2C_STOP() Wire.endTransmission(true)
 
 uint8_t nunchuk_data[6];
 uint8_t nunchuk_cali[16];
