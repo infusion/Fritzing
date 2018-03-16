@@ -43,12 +43,12 @@
 uint8_t nunchuk_data[6];
 uint8_t nunchuk_cali[16];
 
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega328P__) // Only Arduino UNO
 /**
  * Use normal analog ports as power supply, which is useful if you want to have all pins in a row
  * Like for the famous WiiChuck adapter
  * @see https://todbot.com/blog/2008/02/18/wiichuck-wii-nunchuck-adapter-available/
  */
-#ifndef __AVR_ATmega32U4__ // NOT Arduino Leonardo
 static void nunchuk_init_power() {
     // Add power supply for port C2 (GND) and C3 (PWR)
     PORTC &= ~_BV(PORTC2);
