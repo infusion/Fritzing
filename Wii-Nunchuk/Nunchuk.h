@@ -131,6 +131,7 @@ static uint8_t nunchuk_read() {
 
     uint8_t i;
     Wire.requestFrom(NUNCHUK_ADDRESS, 6);
+    delayMicroseconds(10);
     for (i = 0; i < 6 && Wire.available(); i++) {
         nunchuk_data[i] = nunchuk_decode_byte(I2C_READ());
     }
