@@ -125,17 +125,15 @@ static inline uint8_t nunchuk_decode_byte(uint8_t x) {
  */
 static uint8_t nunchuk_read() {
 
+    I2C_START(NUNCHUK_ADDRESS);
+    I2C_WRITE(0x00);
+    I2C_STOP();
+
     uint8_t i;
     Wire.requestFrom(NUNCHUK_ADDRESS, 6);
     for (i = 0; i < 6 && Wire.available(); i++) {
         nunchuk_data[i] = nunchuk_decode_byte(I2C_READ());
     }
-
-    // send new request
-    I2C_START(NUNCHUK_ADDRESS);
-    I2C_WRITE(0x00);
-    I2C_STOP();
-
     return i == 6;
 }
 
