@@ -65,22 +65,26 @@ static void nunchuk_init() {
     // Change TWI speed for nuchuk, which uses Fast-TWI (400kHz)
     // Normally this will be set in twi_init(), but this hack works without modifying the original source
     Wire.setClock(400000);
+    
+    // delay(1);
 
 #ifdef NUNCHUK_DISABLE_ENCRYPTION
     I2C_START(NUNCHUK_ADDRESS);
     I2C_WRITE(0xF0);
     I2C_WRITE(0x55);
     I2C_STOP();
-
+    // delay(1)
     I2C_START(NUNCHUK_ADDRESS);
     I2C_WRITE(0xFB);
     I2C_WRITE(0x00);
     I2C_STOP();
+    // delay(1)
 #else
     I2C_START(NUNCHUK_ADDRESS);
     I2C_WRITE(0x40);
     I2C_WRITE(0x00);
     I2C_STOP();
+    // delay(1)
 #endif
 
 #ifdef NUNCHUK_DEBUG
@@ -230,16 +234,16 @@ static int16_t nunchuk_accelZ() {
 }
 
 /**
- * Calculates the pitch angle of the Nunchuk
+ * Calculates the pitch angle THETA around y-axis of the Nunchuk
  */
-static float nunchuk_pitch() {
+static float nunchuk_pitch() { // tilt-y
     return atan2((float) nunchuk_accelY(), (float) nunchuk_accelZ());
 }
 
 /**
- * Calculates the roll angle of the Nunchuk
+ * Calculates the roll angle PHI around x-axis of the Nunchuk
  */
-static float nunchuk_roll() {
+static float nunchuk_roll() { // tilt-x
     return atan2((float) nunchuk_accelX(), (float) nunchuk_accelZ());
 }
 
