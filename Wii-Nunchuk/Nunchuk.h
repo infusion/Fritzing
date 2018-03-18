@@ -26,6 +26,9 @@
 // Print debug information instead of a CSV stream to the serial port
 // #define NUNCHUK_DEBUG
 
+// If only max values are getting printed, chances are high, the Nunchuk needs time. Try commenting out the following define
+// #define NUNCHUK_DELAY
+
 // The Nunchuk I2C address
 #define NUNCHUK_ADDRESS 0x52
 
@@ -131,11 +134,14 @@ static uint8_t nunchuk_read() {
 
     I2C_START(NUNCHUK_ADDRESS);
     I2C_WRITE(0x00);
+#ifdef NUNCHUK_DELAY
+    delayMicroseconds(100);
+#endif
     I2C_STOP();
 
     uint8_t i;
     Wire.requestFrom(NUNCHUK_ADDRESS, 6);
-    delayMicroseconds(10);
+    //delayMicroseconds(10);
     for (i = 0; i < 6 && Wire.available(); i++) {
         nunchuk_data[i] = nunchuk_decode_byte(I2C_READ());
     }
