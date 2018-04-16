@@ -29,7 +29,7 @@ float K2 = 0;
 float X2 = 0;
 
 void setup() {
-    size(450, 450, OPENGL);
+    size(450, 450, P3D);
 
     String portName = Serial.list()[1];
 
