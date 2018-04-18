@@ -240,14 +240,14 @@ static int16_t nunchuk_accelZ() {
 }
 
 /**
- * Calculates the pitch angle THETA around y-axis of the Nunchuk
+ * Calculates the pitch angle THETA around y-axis of the Nunchuk in radians
  */
 static float nunchuk_pitch() { // tilt-y
     return atan2((float) nunchuk_accelY(), (float) nunchuk_accelZ());
 }
 
 /**
- * Calculates the roll angle PHI around x-axis of the Nunchuk
+ * Calculates the roll angle PHI around x-axis of the Nunchuk in radians
  */
 static float nunchuk_roll() { // tilt-x
     return atan2((float) nunchuk_accelX(), (float) nunchuk_accelZ());
