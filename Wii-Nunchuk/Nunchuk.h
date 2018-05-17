@@ -68,7 +68,7 @@ static void nunchuk_init() {
     // Change TWI speed for nuchuk, which uses Fast-TWI (400kHz)
     // Normally this will be set in twi_init(), but this hack works without modifying the original source
     Wire.setClock(400000);
-    
+
     // delay(1);
 
 #ifdef NUNCHUK_DISABLE_ENCRYPTION
@@ -76,18 +76,18 @@ static void nunchuk_init() {
     I2C_WRITE(0xF0);
     I2C_WRITE(0x55);
     I2C_STOP();
-    // delay(1)
+    // delay(1);
     I2C_START(NUNCHUK_ADDRESS);
     I2C_WRITE(0xFB);
     I2C_WRITE(0x00);
     I2C_STOP();
-    // delay(1)
+    // delay(1);
 #else
     I2C_START(NUNCHUK_ADDRESS);
     I2C_WRITE(0x40);
     I2C_WRITE(0x00);
     I2C_STOP();
-    // delay(1)
+    // delay(1);
 #endif
 
 #ifdef NUNCHUK_DEBUG
@@ -132,19 +132,18 @@ static inline uint8_t nunchuk_decode_byte(uint8_t x) {
  */
 static uint8_t nunchuk_read() {
 
-    I2C_START(NUNCHUK_ADDRESS);
-    I2C_WRITE(0x00);
-#ifdef NUNCHUK_DELAY
-    delayMicroseconds(100);
-#endif
-    I2C_STOP();
-
     uint8_t i;
     Wire.requestFrom(NUNCHUK_ADDRESS, 6);
     //delayMicroseconds(10);
     for (i = 0; i < 6 && Wire.available(); i++) {
         nunchuk_data[i] = nunchuk_decode_byte(I2C_READ());
     }
+    I2C_START(NUNCHUK_ADDRESS);
+    I2C_WRITE(0x00);
+#ifdef NUNCHUK_DELAY
+    delayMicroseconds(100);
+#endif
+    I2C_STOP();
     return i == 6;
 }
 
