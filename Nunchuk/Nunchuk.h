@@ -26,9 +26,6 @@
 // Print debug information instead of a CSV stream to the serial port
 // #define NUNCHUK_DEBUG
 
-// If only max values are getting printed, chances are high, the Nunchuk needs time. Try commenting out the following define
-// #define NUNCHUK_DELAY
-
 // The Nunchuk I2C address
 #define NUNCHUK_ADDRESS 0x52
 
@@ -66,7 +63,6 @@ static void nunchuk_init_power() {
 static void nunchuk_init() {
 
     // Change TWI speed for nuchuk, which uses Fast-TWI (400kHz)
-    // Normally this will be set in twi_init(), but this hack works without modifying the original source
     Wire.setClock(400000);
 
     // delay(1);
@@ -140,9 +136,7 @@ static uint8_t nunchuk_read() {
     }
     I2C_START(NUNCHUK_ADDRESS);
     I2C_WRITE(0x00);
-#ifdef NUNCHUK_DELAY
-    delayMicroseconds(100);
-#endif
+    // delayMicroseconds(100);
     I2C_STOP();
     return i == 6;
 }
