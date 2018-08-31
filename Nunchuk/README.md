@@ -1,11 +1,11 @@
 # Wii-Nunchuk
 
-![Nunchuk](https://raw.githubusercontent.com/infusion/Fritzing/master/Wii-Nunchuk/nunchuk.jpg)
+![Nunchuk](https://github.com/infusion/Fritzing/blob/master/Nunchuk/nunchuk.jpg?raw=true)
 
 Schema
 ---
 
-![screen](https://raw.githubusercontent.com/infusion/Fritzing/master/Wii-Nunchuk/screen.png)
+![screen](https://github.com/infusion/Fritzing/blob/master/Nunchuk/screen.png?raw=true)
 
 Documentation
 ---
