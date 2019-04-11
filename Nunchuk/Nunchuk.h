@@ -252,23 +252,13 @@ static float nunchuk_roll() { // tilt-x
 static void nunchuk_print() {
 
 #ifdef NUNCHUK_DEBUG
-    Serial.print("joy: ");
-    Serial.print(nunchuk_joystickX(), DEC);
-    Serial.print(", ");
-    Serial.print(nunchuk_joystickY(), DEC);
+    char buf[100];
 
-    Serial.print("  acc:");
-    Serial.print(nunchuk_accelX(), DEC);
-    Serial.print(", ");
-    Serial.print(nunchuk_accelY(), DEC);
-    Serial.print(", ");
-    Serial.print(nunchuk_accelZ(), DEC);
-
-    Serial.print("  but:");
-    Serial.print(nunchuk_buttonZ(), DEC);
-    Serial.print(", ");
-    Serial.print(nunchuk_buttonC(), DEC);
-    Serial.print("\n");
+    sprintf(buf, "Joy X=%4d Y=%4d   Acc X=%4d Y=%4d Z=%4d   Btn Z=%1d C=%1d\n",
+        nunchuk_joystickX(), nunchuk_joystickY(),
+        nunchuk_accelX(), nunchuk_accelY(), nunchuk_accelZ(),
+        nunchuk_buttonZ(), nunchuk_buttonC());
+    Serial.print(buf);
 #else
     Serial.print(nunchuk_joystickX(), DEC);
     Serial.print(",");
