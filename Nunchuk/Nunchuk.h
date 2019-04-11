@@ -125,13 +125,17 @@ static uint8_t nunchuk_read() {
 
     uint8_t i;
     Wire.requestFrom(NUNCHUK_ADDRESS, 6);
-    //delayMicroseconds(10);
+#ifdef SAMD_SERIES
+    delayMicroseconds(10);
+#endif
     for (i = 0; i < 6 && Wire.available(); i++) {
         nunchuk_data[i] = nunchuk_decode_byte(I2C_READ());
     }
     I2C_START(NUNCHUK_ADDRESS);
     I2C_WRITE(0x00);
-    // delayMicroseconds(100);
+#ifdef SAMD_SERIES
+    delayMicroseconds(100);
+#endif
     I2C_STOP();
     return i == 6;
 }
