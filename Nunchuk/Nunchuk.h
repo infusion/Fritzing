@@ -62,11 +62,6 @@ static void nunchuk_init_power() {
  */
 static void nunchuk_init() {
 
-    // Change TWI speed for nuchuk, which uses Fast-TWI (400kHz)
-    Wire.setClock(400000);
-
-    // delay(1);
-
 #ifdef NUNCHUK_DISABLE_ENCRYPTION
     I2C_START(NUNCHUK_ADDRESS);
     I2C_WRITE(0xF0);
