@@ -125,7 +125,7 @@ static uint8_t nunchuk_read() {
 
     uint8_t i;
     Wire.requestFrom(NUNCHUK_ADDRESS, 6);
-#ifdef SAMD_SERIES
+#ifdef SAM
     delayMicroseconds(10);
 #endif
     for (i = 0; i < 6 && Wire.available(); i++) {
@@ -133,7 +133,7 @@ static uint8_t nunchuk_read() {
     }
     I2C_START(NUNCHUK_ADDRESS);
     I2C_WRITE(0x00);
-#ifdef SAMD_SERIES
+#ifdef SAM
     delayMicroseconds(100);
 #endif
     I2C_STOP();
